@@ -203,8 +203,6 @@ workflow GENERATE_REPORT {
         ch_multiqc_files = ch_multiqc_files.join(BGC_PLOT_CLINES.out.cline_plot_html)
         ch_multiqc_files = ch_multiqc_files.join(BGC_PLOT_CLINES.out.scatter_plot_html)
         ch_multiqc_files = ch_multiqc_files.join(BGC_PLOT_CLINES.out.single_plot_html)
-
-
     }
 
 
