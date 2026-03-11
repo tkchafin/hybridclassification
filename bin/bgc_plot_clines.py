@@ -117,6 +117,22 @@ def classify_outlier(center_low, center_high, grad_low, grad_high):
     return ";".join(labels)
 
 
+def write_summary_table(df, outfile):
+    cols = [
+        "row_id",
+        "locus",
+        "center_50",
+        "center_low",
+        "center_high",
+        "gradient_50",
+        "gradient_low",
+        "gradient_high",
+        "outlier_type",
+        "plot_class",
+    ]
+    df[cols].to_csv(outfile, sep="\t", index=False, float_format="%.6f")
+
+
 def canonical_plot_class(label):
     """
     Keep full multi-type combinations rather than collapsing to a single priority.
@@ -636,9 +652,13 @@ def main():
     parser.add_argument("--out-scatter", required=True, help="Output HTML for parameter scatter plot")
     parser.add_argument("--out-single", required=True, help="Output HTML for single-locus cline plot")
 
+    parser.add_argument("--out-table", required=True, help="Output TSV summary table for all loci")
+
     args = parser.parse_args()
 
     df = prepare_dataframe(args.center, args.gradient, args.loci)
+
+    write_summary_table(df, args.out_table)
 
     overlay_meta = parse_template(args.template_overlay)
     scatter_meta = parse_template(args.template_scatter)

@@ -11,6 +11,7 @@ process BGC_PLOT_CLINES {
         tuple val(meta), path("${meta.id}_gencline_plot_mqc.html"),         emit: cline_plot_html
         tuple val(meta), path("${meta.id}_gencline_param_scatter_mqc.html"), emit: scatter_plot_html
         tuple val(meta), path("${meta.id}_gencline_single_locus_mqc.html"),  emit: single_plot_html
+        tuple val(meta), path("${meta.id}_cline_parameter_summary.tsv"), emit: summary_tsv
 
     script:
     def args = task.ext.args ?: ''
@@ -61,6 +62,7 @@ process BGC_PLOT_CLINES {
         --out-overlay       "${meta.id}_gencline_plot_mqc.html" \\
         --out-scatter       "${meta.id}_gencline_param_scatter_mqc.html" \\
         --out-single        "${meta.id}_gencline_single_locus_mqc.html" \\
+        --out-table ${meta.id}_cline_parameter_summary.tsv \\
         ${args}
     """
 }
