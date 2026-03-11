@@ -96,13 +96,16 @@ def read_param_table(path, param_name):
     return df
 
 
+# Basically does the CI NOT overlap with neutral expectation transition point
 def classify_outlier(center_low, center_high, grad_low, grad_high):
     labels = []
 
+    # center < 0.5 => left-shift => excess P1 ancestry
     if center_high < 0.5:
-        labels.append("P0-bias")
-    elif center_low > 0.5:
         labels.append("P1-bias")
+    # center > 0.5 => right-shift => excess P0 ancestry
+    elif center_low > 0.5:
+        labels.append("P0-bias")
 
     if grad_low > 1.0:
         labels.append("Steeper")
